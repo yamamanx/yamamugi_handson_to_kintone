@@ -32,7 +32,7 @@ def post_record(record_dict):
             data=json.dumps(data),
             headers=headers
         )
-        return response.text
+        return json.loads(response.text)['id']
     except Exception as e:
         logger.error(response.text)
         logger.error(traceback.format_exc())
@@ -55,7 +55,7 @@ def lambda_handler(event, context):
             record_no=str(record_no)
         )
 
-        return {'kintone_url', response_url}
+        return {'kintone_url': response_url}
 
     except Exception as e:
         logger.error(traceback.format_exc())
