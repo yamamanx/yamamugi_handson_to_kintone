@@ -43,6 +43,8 @@ def lambda_handler(event, context):
     try:
         phone_number = event.get('phone_number','')
         line_code = event.get('line_code','')
+        text = event.get('text','')
+        reply = event.get('reply','')
 
         if phone_number:
             media = 'tel'
@@ -53,6 +55,8 @@ def lambda_handler(event, context):
         insert_record['phone_number'] = {'value': phone_number}
         insert_record['line_code'] = {'value': line_code}
         insert_record['media'] = {'value': media}
+        insert_record['text'] = {'value': text}
+        insert_record['reply'] = {'value': reply}
 
         record_no = post_record(insert_record)
         response_url = KINTONE_RESPONSE_URL.format(
