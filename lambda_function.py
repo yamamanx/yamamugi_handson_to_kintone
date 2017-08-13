@@ -44,9 +44,15 @@ def lambda_handler(event, context):
         phone_number = event.get('phone_number','')
         line_code = event.get('line_code','')
 
+        if phone_number:
+            media = 'tel'
+        else:
+            media = 'line'
+
         insert_record = {}
         insert_record['phone_number'] = {'value': phone_number}
         insert_record['line_code'] = {'value': line_code}
+        insert_record['media'] = {'value': media}
 
         record_no = post_record(insert_record)
         response_url = KINTONE_RESPONSE_URL.format(
